@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">하루이틀</string>
+    <string name="bt_signin">로그인</string>
+    <string name="bt_signup">회원가입</string>
+    <string name="bt_facebook">페이스북으로 로그인</string>
+    <string name="facebook_app_id">1807626496120201</string>
+    <string name="button_add">추가</string>
+    <string name="button_ok">확인</string>
+    <string name="button_yes">예</string>
+    <string name="button_no">아니오</string>
+    <string name="alert_title_question">질문</string>
+    <string name="alert_msg_delete">"%s"를 삭제하시겠습니까?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
