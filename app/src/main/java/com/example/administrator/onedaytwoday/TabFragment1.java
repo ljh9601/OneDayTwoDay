@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.melnykov.fab.FloatingActionButton;
-
 import java.util.ArrayList;
 
 

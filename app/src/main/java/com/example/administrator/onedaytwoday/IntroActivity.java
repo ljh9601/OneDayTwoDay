@@ -1,5 +1,6 @@
 package com.example.administrator.onedaytwoday;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONObject;
 
@@ -25,6 +27,11 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
     private Button _signup, _signin;
     private LoginButton _fbsignin;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onClick(View v){

@@ -1,5 +1,6 @@
 package com.example.administrator.onedaytwoday;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,22 +9,27 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.melnykov.fab.FloatingActionButton;
+import com.tsengvn.typekit.TypekitContextWrapper;
+
+import android.support.design.widget.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TabLayout tabLayout;
+    private FloatingActionButton fab;
     private ViewPager viewPager;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +37,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_btn);
-
+        fab = (FloatingActionButton) findViewById(R.id.floating_btn);
+        fab.setOnClickListener(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
         tabLayout.addTab(tabLayout.newTab().setText("대타 알바"));
         tabLayout.addTab(tabLayout.newTab().setText("단기 알바"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab Three"));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Initializing ViewPager
@@ -61,15 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -79,13 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        switch(v.getId()){
+            case R.id.floating_btn:
+                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("Main Page") // TODO: Define a title for the content shown.
@@ -116,12 +118,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
-    }
-
-    private class floatingButtonClickLisetner implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "HI", Toast.LENGTH_LONG).show();
-        }
     }
 }

@@ -10,14 +10,14 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <com.melnykov.fab.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/floating_btn"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:background="@color/yellow"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/fab_icon"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"/>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
