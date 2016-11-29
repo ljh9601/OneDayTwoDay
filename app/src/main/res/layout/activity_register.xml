@@ -30,19 +30,25 @@
         android:weightSum="1">
 
         <Button
-            android:background="@drawable/button_selector_primary"
+            android:background="@color/cardview_dark_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="가입"
+            android:id = "@+id/register"
+            android:textColor="@color/white"
+            android:onClick="onClick"
             android:layout_weight="0.5" />
 
         <Button
-            android:background="@drawable/button_selector_primary"
+            android:background="@color/cardview_dark_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id = "@+id/back"
             android:layout_weight="0.5"
-            android:text="뒤로" />
+            android:textColor="@color/white"
+            android:text="뒤로"
+            android:onClick="onClick"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,53 +60,82 @@
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:textColorHint="@color/aluminum"
             android:hint="이름"
+            android:id = "@+id/name"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
+            android:background="@color/white"
             android:inputType="text"
             android:textColor="@color/black"/>
 
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textColorHint="@color/aluminum"
             android:hint="아이디"
+            android:id = "@+id/input_id"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
             android:inputType="text"
             android:textColor="@color/black"/>
 
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textColorHint="@color/aluminum"
             android:hint="비밀번호"
+            android:id = "@+id/input_password"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
             android:inputType="text"
             android:textColor="@color/black"/>
 
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textColorHint="@color/aluminum"
             android:hint="비밀번호 확인"
+            android:id = "@+id/check_password"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
             android:inputType="text"
             android:textColor="@color/black"/>
 
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textColorHint="@color/aluminum"
             android:hint="전화번호('-' 빼고 입력)"
+            android:id = "@+id/phone"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
             android:inputType="text"
             android:textColor="@color/black"/>
-
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:text="생년월일 선택"
-            android:background="@drawable/button_selector_primary"
-            android:id="@+id/pick_birth"
-            android:layout_height="wrap_content" />
 
         <EditText
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textColorHint="@color/aluminum"
+            android:id = "@+id/email"
             android:hint="이메일 주소"
+            android:layout_marginBottom="20dp"
+            android:textCursorDrawable="@color/dark"
             android:inputType="text"
             android:textColor="@color/black">
         </EditText>
 
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:text="생년월일 선택"
+            android:background="@color/buttonPrimary"
+            android:id="@+id/pick_birth"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </FrameLayout>

@@ -28,6 +28,8 @@
         <activity android:name=".IntroActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".searchActivity"/>
+        <activity android:name=".resultSearchActivity"/>
         <activity
             android:name=".MainActivity"
             /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for

@@ -5,7 +5,8 @@ package com.example.administrator.onedaytwoday;
  */
 
 public class UrlContainer {
-    public final static String MAIN_URL ="http://192.168.0.1:8080";
-    public final static String REST_LOGIN = "/routes/login";
-    public final static String REST_REGISTER = "/routes/register";
+    public final static String MAIN_URL ="http://onedaytwoday.cafe24app.com";
+    public final static String REST_LOGIN = "/users/login";
+    public final static String REST_REGISTER = "/users/register";
+    public final static String REST_NEW_BOARD = "/board/new";
 }

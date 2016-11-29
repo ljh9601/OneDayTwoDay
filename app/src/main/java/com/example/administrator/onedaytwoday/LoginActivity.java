@@ -60,7 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 System.out.println(builder.toString());
             } catch (MalformedURLException e) {
+                return false;
             } catch (IOException e) {
+                return false;
             }
         }
         return true;

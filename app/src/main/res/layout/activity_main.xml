@@ -10,15 +10,19 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+<!--android:tint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/yellow"!-->
         <android.support.design.widget.FloatingActionButton
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:src="@drawable/fab_icon"
             android:id="@+id/floating_btn"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@drawable/fab_icon"
             android:layout_marginBottom="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"/>
-
+            android:layout_marginRight="@dimen/fab_margin"
+            />
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -34,8 +38,30 @@
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                />
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                <ImageView
+                    android:src="@drawable/sidebar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="top|left"
+                    android:onClick="onClick"
+                    android:id="@+id/sideBar"
+                    />
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:src="@drawable/search_icon"
+                    android:layout_gravity="top|right"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_marginRight="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_gravity="center"
+                    android:textSize="30sp"/>
+                </android.support.v7.widget.Toolbar>
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"

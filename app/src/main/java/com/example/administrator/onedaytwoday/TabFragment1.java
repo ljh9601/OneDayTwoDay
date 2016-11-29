@@ -37,7 +37,7 @@ public class TabFragment1 extends Fragment {
         mListView.setSelector(R.drawable.list_selector);
 
 
-        mList.add("List1");
+        /*mList.add("List1");
         mList.add("List2");
         mList.add("List3");
         mList.add("List4");
@@ -59,7 +59,7 @@ public class TabFragment1 extends Fragment {
         mList.add("List20");
         mList.add("List21");
         mList.add("List22");
-        mList.add("List23");
+        mList.add("List23");*/
         mAdapter.notifyDataSetChanged();
 
         return view;
@@ -108,7 +108,6 @@ public class TabFragment1 extends Fragment {
                 public void onClick( DialogInterface dialog, int which )
                 {
                     //mList.remove(selectedPos);
-
                     // 아래 method를 호출하지 않을 경우, 삭제된 item이 화면에 계속 보여진다.
                     mAdapter.notifyDataSetChanged();
                     dialog.dismiss();  // AlertDialog를 닫는다.
@@ -123,8 +122,8 @@ public class TabFragment1 extends Fragment {
                     dialog.dismiss();  // AlertDialog를 닫는다.
                 }
             });
-            alertDlg.setMessage( String.format( getString(R.string.alert_msg_delete),
-                    mList.get(position)) );
+           // alertDlg.setMessage( String.format( getString(R.string.alert_msg_delete),
+             //       mList.get(position)) );
             alertDlg.show();
             return true;
         }

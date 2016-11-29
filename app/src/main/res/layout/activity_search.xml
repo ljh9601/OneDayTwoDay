@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:src="@drawable/back_icon"
+            android:id="@+id/back_Icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+        <AutoCompleteTextView
+            android:id = "@+id/autoSearchText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleX="1.0"
+            android:scaleY="1.5"
+            android:completionThreshold="2"
+            android:textCursorDrawable="@color/dark"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"
+            android:layout_marginStart="5dp"
+            />
+        <ImageView
+            android:src="@drawable/search_icon"
+            android:id="@+id/search_icon"
+            android:layout_gravity="top|end"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+             />
+    </LinearLayout>
+
+</RelativeLayout>
