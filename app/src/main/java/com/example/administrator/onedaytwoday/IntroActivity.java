@@ -49,6 +49,7 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //_fbsignin 나오는 부분과 관련된 소스는 Open Source 입니다.
     public void initView(){
         _fbsignin = (LoginButton)findViewById((R.id.fbsignin));
         _fbsignin.setReadPermissions(Arrays.asList("public_profile", "email"));

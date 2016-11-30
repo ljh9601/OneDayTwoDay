@@ -8,5 +8,15 @@ public class UrlContainer {
     public final static String MAIN_URL ="http://onedaytwoday.cafe24app.com";
     public final static String REST_LOGIN = "/users/login";
     public final static String REST_REGISTER = "/users/register";
-    public final static String REST_NEW_BOARD = "/board/new";
+    public final static String REST_NEW_JOB = "/job/new";
+    public final static String REST_JOBBY_TYPE = "/job/type";
+    public final static String REST_JTITLE_EDIT = "/job/tupdate";
+    public final static String REST_JCATEGORY_EDIT = "/job/cupdate";
+    public final static String REST_REMOVE_JOB = "/job/delete";
+    public final static String REST_REMOVE_EXPIRED = "/job/expire";
+    public final static String REST_ALL_REVIEW = "/review/all";
+    public final static String REST_REVIEW_EDIT = "/review/update";
+    public final static String REST_NEW_REVIEW = "/review/new";
+    public final static String REST_DELETE_USER = "/users/delete";
+    public final static String REST_TARGER_USER = "/users/target";
 }

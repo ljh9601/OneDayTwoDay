@@ -27,6 +27,18 @@ public class ServerHandler {
         datakey = data;
         prop = getBody(datakey);
     }
+    public ServerHandler(String url){
+        this.url = url;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    public void setProp(final HashMap<String, String> data){
+        prop = getBody(data);
+    }
+
 
     public String getBody(final Map<String, String> postData) {
         String body = "";
@@ -67,6 +79,56 @@ public class ServerHandler {
             }
         };
         t.start();
+    }
+
+    public void GET(final Handler handler){
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                String json = GET();
+                if(json == null) {
+                    json = "";
+                }
+                Message msg = handler.obtainMessage();
+                Bundle bundle = new Bundle();
+                bundle.putString("json", json);
+                msg.setData(bundle);
+                handler.sendMessage(msg);
+            }
+        };
+        t.start();
+    }
+
+    public String GET(){
+        String html = new String();
+        try {
+            URL targetUrl = new URL(url);
+
+            HttpURLConnection urlConnection = (HttpURLConnection) targetUrl.openConnection();
+
+            if (urlConnection != null) {
+                urlConnection.setUseCaches(false);
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    while (true) {
+                        String buf = br.readLine();
+                        if (buf == null)
+                            break;
+                        html += buf;
+                    }
+                    br.close();
+                    urlConnection.disconnect();
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            return null;
+        } finally {
+        }
+        return html;
     }
 
     public String POST() {

@@ -1,28 +1,32 @@
 package com.example.administrator.onedaytwoday;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class TabFragment1 extends Fragment {
     private ArrayList<String> mList;
     private ListView mListView;
     private ArrayAdapter mAdapter;
+    private ServerHandler serverHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -35,34 +39,31 @@ public class TabFragment1 extends Fragment {
         mListView.setOnItemClickListener(new ListViewItemClickListener());
         mListView.setOnItemLongClickListener(new ListViewItemLongClickListener());
         mListView.setSelector(R.drawable.list_selector);
-
-
-        /*mList.add("List1");
-        mList.add("List2");
-        mList.add("List3");
-        mList.add("List4");
-        mList.add("List5");
-        mList.add("List6");
-        mList.add("List7");
-        mList.add("List8");
-        mList.add("List9");
-        mList.add("List10");
-        mList.add("List11");
-        mList.add("List12");
-        mList.add("List13");
-        mList.add("List14");
-        mList.add("List15");
-        mList.add("List16");
-        mList.add("List17");
-        mList.add("List18");
-        mList.add("List19");
-        mList.add("List20");
-        mList.add("List21");
-        mList.add("List22");
-        mList.add("List23");*/
         mAdapter.notifyDataSetChanged();
+        serverHandler = new ServerHandler(UrlContainer.MAIN_URL + UrlContainer.REST_JOBBY_TYPE);
 
         return view;
+    }
+
+    public void daetaJob(){
+        serverHandler.GET(new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                String json = msg.getData().getString("json");
+                try {
+                    JSONArray jsonArr = new JSONArray(json);
+                    for(int i = 0; i < jsonArr.length(); i++){
+                        JSONObject json_list = jsonArr.getJSONObject(i);
+                        if(json_list.getInt("Type") == -1) continue;
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "정보를 불러오는 중 오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }finally {
+                }
+            }
+        });
+
     }
 
 
@@ -122,8 +123,8 @@ public class TabFragment1 extends Fragment {
                     dialog.dismiss();  // AlertDialog를 닫는다.
                 }
             });
-           // alertDlg.setMessage( String.format( getString(R.string.alert_msg_delete),
-             //       mList.get(position)) );
+            // alertDlg.setMessage( String.format( getString(R.string.alert_msg_delete),
+            //       mList.get(position)) );
             alertDlg.show();
             return true;
         }

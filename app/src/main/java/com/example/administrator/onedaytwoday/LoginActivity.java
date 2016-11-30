@@ -1,23 +1,19 @@
 package com.example.administrator.onedaytwoday;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.tsengvn.typekit.TypekitContextWrapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 
@@ -29,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String Uid;
     private String Pwd;
     private boolean isLoggedIn;
+    private ServerHandler serverHandler;
 
     public boolean tryLogin(){
         HashMap<String, String> data = new HashMap<>();
@@ -38,41 +35,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else {
             data.put("Uid", _id.getText().toString());
             data.put("Pwd", _pwd.getText().toString());
-            try {
-                URL url = new URL(targetUrl);
-                HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                http.setDefaultUseCaches(false);
-                http.setDoInput(true);
-                http.setDoOutput(true);
-                http.setRequestMethod("POST");
-                http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-                String body = "Uid=" + _id.getText().toString() + "&Pwd=" + _pwd.getText().toString();
-                OutputStream os = http.getOutputStream();
-                os.write(body.getBytes("UTF-8"));
-                os.flush();
-                os.close();
-                InputStreamReader reader = new InputStreamReader(http.getInputStream());
-                BufferedReader br = new BufferedReader(reader);
-                StringBuilder builder = new StringBuilder();
-                String temp;
-                while((temp = br.readLine()) != null){
-                    builder.append(temp + "\n");
+            serverHandler = new ServerHandler(data, targetUrl);
+            serverHandler.POST(new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    String json = msg.getData().getString("json");
+                    try {
+                        JSONArray jsonArray = new JSONArray(json);
+                        JSONObject obj = jsonArray.getJSONObject(0);
+                        Intent call = new Intent(LoginActivity.this, IntroActivity.class);
+                        startActivity(call);
+                        finish();
+                    } catch (JSONException e) {
+                    }
                 }
-                System.out.println(builder.toString());
-            } catch (MalformedURLException e) {
-                return false;
-            } catch (IOException e) {
-                return false;
-            }
+            });
         }
         return true;
     }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
 
     @Override
     public void onClick(View v){

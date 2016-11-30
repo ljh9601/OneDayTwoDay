@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:id="@+id/linearLayout">
         <ImageView
             android:src="@drawable/back_icon"
             android:id="@+id/resultbackIcon"
@@ -31,15 +32,36 @@
             android:background="@color/white"
             android:layout_marginStart="5dp"
             />
+
         <ImageView
             android:src="@drawable/search_icon"
-            android:id="@+id/search_icon"
+            android:id="@+id/autoResult_search_icon"
             android:layout_gravity="top|end"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             />
-    </LinearLayout>
 
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tabLayout"
+            android:background="@color/colorPrimaryDark"
+            android:fillViewport="true"></ScrollView>
+        <ListView
+            android:background="@color/white"
+            android:id="@+id/resultSearchList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector"
+            android:clickable="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/linearLayout" />
+    </FrameLayout>
 </RelativeLayout>

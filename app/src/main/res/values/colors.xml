@@ -6,7 +6,9 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="buttonPrimary">#eddb10</color>
+    <color name="buttonPrimary">#EDDB10</color>
+    <color name="drawer_color">#FFC640DE</color>
+    <color name="transparent_white">#55FFFFFF</color>
     <color name="accent">#FFFFFF</color>
     <color name="black">#111111</color>
     <color name="jet">#222222</color>
