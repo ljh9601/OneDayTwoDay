@@ -1,6 +1,7 @@
 package com.example.administrator.onedaytwoday;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,28 +32,45 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ServerHandler serverHandler;
 
     private boolean register(){
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Registering...");
+        progressDialog.show();
+        _register.setEnabled(false);
         if(_name.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_LONG).show();
+            _name.setError("이름을 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_inputid.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "ID를 입력해주세요", Toast.LENGTH_LONG).show();
+            _inputid.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_inputpassword.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "비밀번호를 입력해주세요", Toast.LENGTH_LONG).show();
+            _inputpassword.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_checkpassword.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "비밀번호 확인을 입력해주세요", Toast.LENGTH_LONG).show();
+            _checkpassword.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_phone.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "휴대폰 번호를 입력해주세요", Toast.LENGTH_LONG).show();
+            _phone.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_email.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "이메일을 입력해주세요", Toast.LENGTH_LONG).show();
+            _email.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _register.setEnabled(true);
             return false;
         }
         if(_pick.getText().toString().equals("생년월일 선택")){
@@ -80,9 +98,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     JSONArray jsonArray = new JSONArray(json);
                     JSONObject obj = jsonArray.getJSONObject(0);
                     Intent call = new Intent(RegisterActivity.this, IntroActivity.class);
+                    progressDialog.dismiss();
+                    _register.setEnabled(true);
                     startActivity(call);
                     finish();
                 }catch(JSONException e){
+                    Toast.makeText(getApplicationContext(),"회원가입에 실패하였습니다", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                    _register.setEnabled(true);
                 }
             }
         });

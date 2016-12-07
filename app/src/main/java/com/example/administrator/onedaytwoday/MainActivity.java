@@ -28,6 +28,11 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static String selectedCity;
+    public static int id = 0;
+    private static String [] city = {"서울","부산","인천",
+            "대전","대구","광주","울산", "수원", "분당", "경기", "청주", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도", "강원도", "기타지역"};
     class NavItem{
         String mTitle;
         String mSubTitle;
@@ -43,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
     private GoogleApiClient client;
-
-
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
     @Override
@@ -75,12 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.addTab(tabLayout.newTab().setText("Tab Three"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final String [] city = {"서울특별시","인천광역시","부산광역시",
-                "대전광역시","대구광역시","광주광역시","울산광역시"};
-        final String [] gu = {"동구","서구","남구","북구","남동구"};
-
-        // city 와 gu 를 담을 두개의 Spinner 객체
-        final Spinner s2 = (Spinner) findViewById(R.id.spinner2);
         final Spinner s1 = (Spinner) findViewById(R.id.spinner1);
 
         // 1 city 에 대한 Spinner
@@ -96,13 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         s1.setAdapter(adapter);
 
-        final TextView tvAddr = (TextView)findViewById(R.id.textView3);
+        final TextView tvAdd = (TextView)findViewById(R.id.textView3);
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                tvAddr.setText("주소 : "+city[position] + " " +
-                        s2.getSelectedItem().toString());
+                tvAdd.setText("주소 : "+city[position]);
+                selectedCity = s1.getSelectedItem().toString();
 //                Log.d("test",s1.getSelectedItem().toString()); // 실제 내용
 //                Log.d("test",s1.getSelectedItemId() +""); // positon
 //                Log.d("test",s1.getSelectedItemPosition() +""); // positon
@@ -110,25 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
-        // 2. gu 에 대한 Spinner
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getApplicationContext(), R.layout.spin, gu);
-        adapter2.setDropDownViewResource(R.layout.spin_dropdown);
-
-        s2.setAdapter(adapter2);
-
-        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                tvAddr.setText("주소 : " +
-                        s1.getSelectedItem().toString()+ " " +
-                        gu[position]);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
 
         // Initializing ViewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -171,6 +149,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onStart() {
+        DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
+        mDrawer.addDrawerListener(mDrawerToggle);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayUseLogoEnabled(false);
+            actionBar.setHomeButtonEnabled(true);
+        }
+
+
         super.onStart();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -199,18 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_LONG).show();
                 break;
             case R.id.sideBar:
-                DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer);
-                ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
-                mDrawer.addDrawerListener(mDrawerToggle);
-
-                /*final ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.setDisplayHomeAsUpEnabled(true);
-                    actionBar.setDisplayShowHomeEnabled(true);
-                    actionBar.setDisplayShowTitleEnabled(true);
-                    actionBar.setDisplayUseLogoEnabled(false);
-                    actionBar.setHomeButtonEnabled(true);
-                }*/
+                Toast.makeText(getApplicationContext(), "Sidebar", Toast.LENGTH_LONG).show();
                 break;
             default: break;
         }

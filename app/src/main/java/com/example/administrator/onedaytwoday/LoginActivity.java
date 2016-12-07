@@ -1,6 +1,8 @@
 package com.example.administrator.onedaytwoday;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,11 +28,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String Pwd;
     private boolean isLoggedIn;
     private ServerHandler serverHandler;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     public boolean tryLogin(){
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+        _login.setEnabled(false);
         HashMap<String, String> data = new HashMap<>();
-        if(_id.getText().toString().equals("") || _pwd.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호를 입력하세요.", Toast.LENGTH_LONG).show();
+        if(_id.getText().toString().equals("")){
+            _id.setError("아이디를 입력하세요");
+            progressDialog.dismiss();
+            _login.setEnabled(true);
+            return false;
+        }
+        if(_pwd.getText().toString().equals("")) {
+            _pwd.setError("비밀번호를 입력하세요");
+            progressDialog.dismiss();
+            _login.setEnabled(true);
             return false;
         }else {
             data.put("Uid", _id.getText().toString());
@@ -44,9 +61,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         JSONArray jsonArray = new JSONArray(json);
                         JSONObject obj = jsonArray.getJSONObject(0);
                         Intent call = new Intent(LoginActivity.this, IntroActivity.class);
+                        MainActivity.id = obj.getInt("id");
+
+                        editor.putString("Uid", obj.getString("Uid"));
+                        editor.putString("Name", obj.getString("Name"));
+                        editor.putString("Pwd", obj.getString("pwd"));
+                        editor.putInt("id", MainActivity.id);
+                        editor.putString("Email", obj.getString("Email"));
+                        editor.putString("Phone", obj.getString("Phone"));
+                        editor.commit();
+                        progressDialog.dismiss();
+                        _login.setEnabled(true);
                         startActivity(call);
                         finish();
                     } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
+                        _login.setEnabled(true);
                     }
                 }
             });
@@ -58,8 +89,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         switch (v.getId()){
             case R.id.login:
-                //if(!(isLoggedIn = tryLogin()))
-                  //  break;
+                if(!(isLoggedIn = tryLogin()))
+                    break;
                 startActivity(new Intent(this, MainActivity.class ));
                 break;
             default: break;
@@ -71,6 +102,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         _login.setOnClickListener(this);
         _id = (EditText)findViewById(R.id.login_account);
         _pwd = (EditText)findViewById(R.id.login_password);
+
+        pref = getSharedPreferences("ONEDAYTWODAY", MODE_PRIVATE);
+        editor = pref.edit();
     }
 
     @Override

@@ -40,21 +40,88 @@ public class TabFragment1 extends Fragment {
         mListView.setOnItemLongClickListener(new ListViewItemLongClickListener());
         mListView.setSelector(R.drawable.list_selector);
         mAdapter.notifyDataSetChanged();
+
         serverHandler = new ServerHandler(UrlContainer.MAIN_URL + UrlContainer.REST_JOBBY_TYPE);
+
+        load();
 
         return view;
     }
 
-    public void daetaJob(){
+    public void load(){
+        serverHandler.addUrl("?id=id");
         serverHandler.GET(new Handler(){
             @Override
             public void handleMessage(Message msg){
+                String city;
                 String json = msg.getData().getString("json");
                 try {
                     JSONArray jsonArr = new JSONArray(json);
                     for(int i = 0; i < jsonArr.length(); i++){
                         JSONObject json_list = jsonArr.getJSONObject(i);
-                        if(json_list.getInt("Type") == -1) continue;
+                        if(json_list.getInt("Type") == 0) {
+                            switch(json_list.getInt("Category")){
+                                case 0:
+                                    city = "서울";
+                                    break;
+                                case 1:
+                                    city = "인천";
+                                    break;
+                                case 2:
+                                    city = "수원";
+                                    break;
+                                case 3:
+                                    city = "분당";
+                                    break;
+                                case 4:
+                                    city = "경기";
+                                    break;
+                                case 5:
+                                    city = "대전";
+                                    break;
+                                case 6:
+                                    city = "청주";
+                                    break;
+                                case 7:
+                                    city = "충청북도";
+                                    break;
+                                case 8:
+                                    city = "충청남도";
+                                    break;
+                                case 9:
+                                    city = "강원도";
+                                    break;
+                                case 10:
+                                    city = "전라남도";
+                                    break;
+                                case 11:
+                                    city = "전라북도";
+                                    break;
+                                case 12:
+                                    city = "경상북도";
+                                    break;
+                                case 13:
+                                    city = "경상남도";
+                                    break;
+                                case 14:
+                                    city = "부산";
+                                    break;
+                                case 15:
+                                    city = "대구";
+                                    break;
+                                case 16:
+                                    city = "경주";
+                                    break;
+                                case 17:
+                                    city = "울산";
+                                    break;
+                                default:
+                                    city = "기타지역";
+                                    break;
+                            }
+                            mList.add(i, "제목 : " + json_list.getString("Title") + "지역 : " + city);
+                        }else
+                            continue;
                     }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "정보를 불러오는 중 오류가 발생하였습니다.", Toast.LENGTH_LONG).show();

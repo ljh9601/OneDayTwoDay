@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "6820071006",
+    "firebase_url": "https://onedaytwoday-afb9a.firebaseio.com",
+    "project_id": "onedaytwoday-afb9a",
+    "storage_bucket": "onedaytwoday-afb9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6820071006:android:e3d5e0cb3bee3e31",
+        "android_client_info": {
+          "package_name": "com.example.administrator.onedaytwoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6820071006-k2csalhk6pt6ep3jvpsqv8l8dbfemkfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbHBVL3Np2ARC0iEkd4bKHxQDmIwuCupM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

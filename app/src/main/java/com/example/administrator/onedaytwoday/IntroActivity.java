@@ -1,12 +1,15 @@
 package com.example.administrator.onedaytwoday;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -18,12 +21,15 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
 public class IntroActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
     private CallbackManager callbackManager;
     private Button _signup, _signin;
     private LoginButton _fbsignin;
@@ -37,6 +43,10 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         switch (v.getId()){
             case R.id.fbsignin:
+                final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("Authenticating...");
+                progressDialog.show();
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.signin:
@@ -49,21 +59,40 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //_fbsignin 나오는 부분과 관련된 소스는 Open Source 입니다.
     public void initView(){
         _fbsignin = (LoginButton)findViewById((R.id.fbsignin));
         _fbsignin.setReadPermissions(Arrays.asList("public_profile", "email"));
         _fbsignin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
+                        String id;
+                        String name;
+                        String email;
+                        String birthday;
+
                         Log.v("result", object.toString());
+                        try {
+                            id = object.getString("id");
+                            name = object.getString("name");
+                            email = object.getString("email");
+                            birthday = object.getString("birthday");
+
+                            editor.putString("Uid", id);
+                            editor.putString("Name", name);
+                            editor.putString("Email", email);
+                            editor.commit();
+
+                        }catch(JSONException e){
+                            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
+                parameters.putString("fields", "id,name,email,birthday");
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
             }
@@ -84,6 +113,18 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
         _signup.setOnClickListener(this);
     }
 
+    public String FBbirthDateFormat(String fbBirth){
+        String birth = fbBirth;
+        String dateFormat = "19";
+        String[] birthday = new String[3];
+        birthday = dateFormat.split("\\/");
+        for(int i = 0; i < 2; i++){
+            dateFormat += birthday[i] + "-";
+        }
+        dateFormat += birthday[2];
+        return dateFormat;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -96,6 +137,7 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_intro);
         callbackManager = CallbackManager.Factory.create();
+        pref = getSharedPreferences("ONEDAYTWODAY", MODE_PRIVATE);
         initView();
     }
 }

@@ -35,6 +35,8 @@ public class ServerHandler {
         this.url = url;
     }
 
+    public void addUrl(String addStr){if(url != null) this.url += addStr;}
+
     public void setProp(final HashMap<String, String> data){
         prop = getBody(data);
     }

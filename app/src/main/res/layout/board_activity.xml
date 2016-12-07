@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/board_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:id="@+id/backing"
+            android:src="@drawable/back_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:id="@+id/textView"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/board_linear_sec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base"
+        android:orientation="vertical"
+        android:layout_below="@id/board_linear">
+        <TextView
+            android:id="@+id/selected_city_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/buttonPrimary"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/board_linear_sec">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabLayout"
+        android:background="@color/colorPrimaryDark"
+        android:fillViewport="true">
+        <ListView
+            android:background="@color/white"
+            android:id="@+id/listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector"
+            android:clickable="true" />
+    </ScrollView>>
+    </FrameLayout>
+</RelativeLayout>

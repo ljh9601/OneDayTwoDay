@@ -3,11 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="This is Tab 3"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textColor="@color/white"
+        android:hint="This is Tab 3"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tabLayout"
+        android:background="@color/colorPrimaryDark"
+        android:fillViewport="true">
+        <ListView
+            android:background="@color/white"
+            android:id="@+id/listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector"
+            android:clickable="true" />
+    </ScrollView>
 </RelativeLayout>
